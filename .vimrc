@@ -25,10 +25,21 @@ set smarttab " insert tabs on the start of a line according to shiftwidth,
 						" not tabstop
 set mouse=a " enable mouse scrolling!
 set mousehide " hide mouse when typing
-nmap :nt :NERDTreeToggle " Shortcut for NERDTreeToggle
+set scrolljump=7 " when scrolling into top or bottom, show at least 7 lines
+nmap :nt :NERDTreeToggle
+	" Shortcut for NERDTreeToggle
+nmap :ntf :NERDTreeFind
+	" Shortcut for NERDTreeFind
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+	" Close NERDTree if it's the only window open after closing other windows
+nmap :t :CommandT
+	" Shortcut for Command T
+nmap :cp :CtrlP
+	" Shortcut for CtrlP
 
 " UI
-set number " always show line numbers
+"set number " always show line numbers
+set relativenumber " show line number relative to cursor
 set ruler " show status bar at bottom of window
 set showmatch " show matching parenthesis
 set title " change the terminal's title
@@ -47,6 +58,7 @@ set smartcase " ignore case if search pattern is lowercase,
 						" otherwise, search is case-sensitive
 set hlsearch " highlight search items (turn off highlights with :noh)
 set incsearch " show search matches as you type
+set scrolloff=7 " show at least 7 lines above & below during search
 
 " Editing
 set history=1000 " remember more commands and search history
@@ -56,3 +68,11 @@ set undolevels=1000 " use more levels of undo
 set wildignore=*.swp,*.pyc " ignore file extensions
 set nobackup " no .swp file -- use git instead
 set noswapfile " no .swp file -- use git instead
+
+" Syntastic linting
+let g:syntastic_enable_signs=1
+let g:syntastic_quiet_warnings=1
+let g:syntastic_javascript_checker="jshint"
+
+" CtrlP
+set runtimepath^=~/.vim/bundle/ctrlp.vim
